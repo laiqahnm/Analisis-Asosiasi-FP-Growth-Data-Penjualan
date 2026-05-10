@@ -1,0 +1,22 @@
+[
+    {
+        "rule": "operator_Anisa → waktu_Siang",
+        "antecedent": "operator_Anisa",
+        "consequent": "waktu_Siang",
+        "support": 0.0604,
+        "confidence": 0.5758,
+        "lift": 1.3143,
+        "kategori_rule": "Strong Pattern",
+        "is_anomaly": false
+    },
+    {
+        "rule": "operator_Riska → waktu_Siang",
+        "antecedent": "operator_Riska",
+        "consequent": "waktu_Siang",
+        "support": 0.1317,
+        "confidence": 0.4701,
+        "lift": 1.0731,
+        "kategori_rule": "Moderate Pattern",
+        "is_anomaly": false
+    }
+]

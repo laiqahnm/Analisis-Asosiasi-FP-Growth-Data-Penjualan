@@ -1,0 +1,14 @@
+[
+    {
+        "kategori_rule": "Moderate Pattern",
+        "jumlah": 8
+    },
+    {
+        "kategori_rule": "Weak Pattern",
+        "jumlah": 4
+    },
+    {
+        "kategori_rule": "Strong Pattern",
+        "jumlah": 2
+    }
+]

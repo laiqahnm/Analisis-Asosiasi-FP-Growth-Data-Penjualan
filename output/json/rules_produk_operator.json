@@ -1,0 +1,12 @@
+[
+    {
+        "rule": "produk_night cream brightening → operator_Indah",
+        "antecedent": "produk_night cream brightening",
+        "consequent": "operator_Indah",
+        "support": 0.0206,
+        "confidence": 0.4181,
+        "lift": 1.4054,
+        "kategori_rule": "Moderate Pattern",
+        "is_anomaly": false
+    }
+]

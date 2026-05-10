@@ -1,0 +1,12 @@
+[
+    {
+        "rule": "waktu_Malam → operator_Oktavira",
+        "antecedent": "waktu_Malam",
+        "consequent": "operator_Oktavira",
+        "support": 0.1007,
+        "confidence": 0.4036,
+        "lift": 1.2714,
+        "kategori_rule": "Moderate Pattern",
+        "is_anomaly": false
+    }
+]

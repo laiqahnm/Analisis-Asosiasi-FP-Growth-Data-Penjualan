@@ -1,0 +1,82 @@
+[
+    {
+        "rule": "produk_night cream brightening → operator_Indah",
+        "support": 0.0206,
+        "confidence": 0.4181,
+        "lift": 1.4054,
+        "kategori_rule": "Moderate Pattern",
+        "is_anomaly": false
+    },
+    {
+        "rule": "produk_daily ceramois hydra gel → waktu_Siang",
+        "support": 0.0276,
+        "confidence": 0.583,
+        "lift": 1.3307,
+        "kategori_rule": "Strong Pattern",
+        "is_anomaly": false
+    },
+    {
+        "rule": "operator_Anisa → waktu_Siang",
+        "support": 0.0604,
+        "confidence": 0.5758,
+        "lift": 1.3143,
+        "kategori_rule": "Strong Pattern",
+        "is_anomaly": false
+    },
+    {
+        "rule": "waktu_Malam → operator_Oktavira",
+        "support": 0.1007,
+        "confidence": 0.4036,
+        "lift": 1.2714,
+        "kategori_rule": "Moderate Pattern",
+        "is_anomaly": false
+    },
+    {
+        "rule": "produk_dna salmon extra marine collagen and hyaluronic acid 30 ml → waktu_Siang",
+        "support": 0.017,
+        "confidence": 0.5063,
+        "lift": 1.1558,
+        "kategori_rule": "Moderate Pattern",
+        "is_anomaly": false
+    },
+    {
+        "rule": "produk_sunscreen natural glow for normal skin new → waktu_Siang",
+        "support": 0.0121,
+        "confidence": 0.4957,
+        "lift": 1.1314,
+        "kategori_rule": "Moderate Pattern",
+        "is_anomaly": false
+    },
+    {
+        "rule": "produk_paket acne 1 → waktu_Siang",
+        "support": 0.0123,
+        "confidence": 0.4754,
+        "lift": 1.0852,
+        "kategori_rule": "Moderate Pattern",
+        "is_anomaly": false
+    },
+    {
+        "rule": "operator_Riska → waktu_Siang",
+        "support": 0.1317,
+        "confidence": 0.4701,
+        "lift": 1.0731,
+        "kategori_rule": "Moderate Pattern",
+        "is_anomaly": false
+    },
+    {
+        "rule": "produk_sunscreen oily acne new → waktu_Siang",
+        "support": 0.0216,
+        "confidence": 0.4636,
+        "lift": 1.0583,
+        "kategori_rule": "Moderate Pattern",
+        "is_anomaly": false
+    },
+    {
+        "rule": "produk_radian brightening ultimate → waktu_Siang",
+        "support": 0.0138,
+        "confidence": 0.4392,
+        "lift": 1.0025,
+        "kategori_rule": "Moderate Pattern",
+        "is_anomaly": false
+    }
+]

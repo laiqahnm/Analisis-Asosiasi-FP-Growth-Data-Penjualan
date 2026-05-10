@@ -1,0 +1,62 @@
+[
+    {
+        "rule": "produk_daily ceramois hydra gel → waktu_Siang",
+        "antecedent": "produk_daily ceramois hydra gel",
+        "consequent": "waktu_Siang",
+        "support": 0.0276,
+        "confidence": 0.583,
+        "lift": 1.3307,
+        "kategori_rule": "Strong Pattern",
+        "is_anomaly": false
+    },
+    {
+        "rule": "produk_dna salmon extra marine collagen and hyaluronic acid 30 ml → waktu_Siang",
+        "antecedent": "produk_dna salmon extra marine collagen and hyaluronic acid 30 ml",
+        "consequent": "waktu_Siang",
+        "support": 0.017,
+        "confidence": 0.5063,
+        "lift": 1.1558,
+        "kategori_rule": "Moderate Pattern",
+        "is_anomaly": false
+    },
+    {
+        "rule": "produk_sunscreen natural glow for normal skin new → waktu_Siang",
+        "antecedent": "produk_sunscreen natural glow for normal skin new",
+        "consequent": "waktu_Siang",
+        "support": 0.0121,
+        "confidence": 0.4957,
+        "lift": 1.1314,
+        "kategori_rule": "Moderate Pattern",
+        "is_anomaly": false
+    },
+    {
+        "rule": "produk_paket acne 1 → waktu_Siang",
+        "antecedent": "produk_paket acne 1",
+        "consequent": "waktu_Siang",
+        "support": 0.0123,
+        "confidence": 0.4754,
+        "lift": 1.0852,
+        "kategori_rule": "Moderate Pattern",
+        "is_anomaly": false
+    },
+    {
+        "rule": "produk_sunscreen oily acne new → waktu_Siang",
+        "antecedent": "produk_sunscreen oily acne new",
+        "consequent": "waktu_Siang",
+        "support": 0.0216,
+        "confidence": 0.4636,
+        "lift": 1.0583,
+        "kategori_rule": "Moderate Pattern",
+        "is_anomaly": false
+    },
+    {
+        "rule": "produk_radian brightening ultimate → waktu_Siang",
+        "antecedent": "produk_radian brightening ultimate",
+        "consequent": "waktu_Siang",
+        "support": 0.0138,
+        "confidence": 0.4392,
+        "lift": 1.0025,
+        "kategori_rule": "Moderate Pattern",
+        "is_anomaly": false
+    }
+]

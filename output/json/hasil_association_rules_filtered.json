@@ -1,0 +1,252 @@
+[
+    {
+        "antecedents":[
+            "produk_night cream brightening"
+        ],
+        "consequents":[
+            "operator_Indah"
+        ],
+        "antecedent support":0.0491942324,
+        "consequent support":0.2974978796,
+        "support":0.0205682782,
+        "confidence":0.4181034483,
+        "lift":1.4053997591,
+        "representativity":1.0,
+        "leverage":0.0059330984,
+        "conviction":1.2072629033,
+        "zhangs_metric":0.303383393,
+        "jaccard":0.0630689207,
+        "certainty":0.1716800067,
+        "kulczynski":0.2436205053,
+        "antecedents_str":"produk_night cream brightening",
+        "consequents_str":"operator_Indah",
+        "jumlah_item":2,
+        "is_anomaly":false,
+        "kategori_rule":"Moderate Pattern"
+    },
+    {
+        "antecedents":[
+            "produk_daily ceramois hydra gel"
+        ],
+        "consequents":[
+            "waktu_Siang"
+        ],
+        "antecedent support":0.0472858355,
+        "consequent support":0.4380831213,
+        "support":0.0275657337,
+        "confidence":0.5829596413,
+        "lift":1.3307055509,
+        "representativity":1.0,
+        "leverage":0.0068506073,
+        "conviction":1.3473920855,
+        "zhangs_metric":0.2608536356,
+        "jaccard":0.0602130616,
+        "certainty":0.2578255352,
+        "kulczynski":0.3229415825,
+        "antecedents_str":"produk_daily ceramois hydra gel",
+        "consequents_str":"waktu_Siang",
+        "jumlah_item":2,
+        "is_anomaly":false,
+        "kategori_rule":"Strong Pattern"
+    },
+    {
+        "antecedents":[
+            "operator_Anisa"
+        ],
+        "consequents":[
+            "waktu_Siang"
+        ],
+        "antecedent support":0.1049618321,
+        "consequent support":0.4380831213,
+        "support":0.06043257,
+        "confidence":0.5757575758,
+        "lift":1.3142655989,
+        "representativity":1.0,
+        "leverage":0.014450563,
+        "conviction":1.324518357,
+        "zhangs_metric":0.2671604384,
+        "jaccard":0.1252196837,
+        "certainty":0.2450085763,
+        "kulczynski":0.3568526504,
+        "antecedents_str":"operator_Anisa",
+        "consequents_str":"waktu_Siang",
+        "jumlah_item":2,
+        "is_anomaly":false,
+        "kategori_rule":"Strong Pattern"
+    },
+    {
+        "antecedents":[
+            "waktu_Malam"
+        ],
+        "consequents":[
+            "operator_Oktavira"
+        ],
+        "antecedent support":0.2495759118,
+        "consequent support":0.3174300254,
+        "support":0.10072095,
+        "confidence":0.4035683942,
+        "lift":1.2713617549,
+        "representativity":1.0,
+        "leverage":0.0214980619,
+        "conviction":1.1444228776,
+        "zhangs_metric":0.2844282506,
+        "jaccard":0.216007276,
+        "certainty":0.1261971256,
+        "kulczynski":0.3604348317,
+        "antecedents_str":"waktu_Malam",
+        "consequents_str":"operator_Oktavira",
+        "jumlah_item":2,
+        "is_anomaly":false,
+        "kategori_rule":"Moderate Pattern"
+    },
+    {
+        "antecedents":[
+            "produk_dna salmon extra marine collagen and hyaluronic acid 30 ml"
+        ],
+        "consequents":[
+            "waktu_Siang"
+        ],
+        "antecedent support":0.0335029686,
+        "consequent support":0.4380831213,
+        "support":0.0169635284,
+        "confidence":0.5063291139,
+        "lift":1.1557832049,
+        "representativity":1.0,
+        "leverage":0.0022864433,
+        "conviction":1.1382418825,
+        "zhangs_metric":0.1394580957,
+        "jaccard":0.0373134328,
+        "certainty":0.1214521137,
+        "kulczynski":0.2725256412,
+        "antecedents_str":"produk_dna salmon extra marine collagen and hyaluronic acid 30 ml",
+        "consequents_str":"waktu_Siang",
+        "jumlah_item":2,
+        "is_anomaly":false,
+        "kategori_rule":"Moderate Pattern"
+    },
+    {
+        "antecedents":[
+            "produk_sunscreen natural glow for normal skin new"
+        ],
+        "consequents":[
+            "waktu_Siang"
+        ],
+        "antecedent support":0.0243850721,
+        "consequent support":0.4380831213,
+        "support":0.012086514,
+        "confidence":0.4956521739,
+        "lift":1.1314112547,
+        "representativity":1.0,
+        "leverage":0.0014038255,
+        "conviction":1.1141455354,
+        "zhangs_metric":0.1190511597,
+        "jaccard":0.0268361582,
+        "certainty":0.1024511895,
+        "kulczynski":0.2616208595,
+        "antecedents_str":"produk_sunscreen natural glow for normal skin new",
+        "consequents_str":"waktu_Siang",
+        "jumlah_item":2,
+        "is_anomaly":false,
+        "kategori_rule":"Moderate Pattern"
+    },
+    {
+        "antecedents":[
+            "produk_paket acne 1"
+        ],
+        "consequents":[
+            "waktu_Siang"
+        ],
+        "antecedent support":0.0258693808,
+        "consequent support":0.4380831213,
+        "support":0.0122985581,
+        "confidence":0.4754098361,
+        "lift":1.0852046403,
+        "representativity":1.0,
+        "leverage":0.000965619,
+        "conviction":1.07115405,
+        "zhangs_metric":0.0805998829,
+        "jaccard":0.0272300469,
+        "certainty":0.0664274667,
+        "kulczynski":0.2517417041,
+        "antecedents_str":"produk_paket acne 1",
+        "consequents_str":"waktu_Siang",
+        "jumlah_item":2,
+        "is_anomaly":false,
+        "kategori_rule":"Moderate Pattern"
+    },
+    {
+        "antecedents":[
+            "operator_Riska"
+        ],
+        "consequents":[
+            "waktu_Siang"
+        ],
+        "antecedent support":0.2801102629,
+        "consequent support":0.4380831213,
+        "support":0.1316793893,
+        "confidence":0.4700984103,
+        "lift":1.0730803983,
+        "representativity":1.0,
+        "leverage":0.008967811,
+        "conviction":1.060417424,
+        "zhangs_metric":0.0946025106,
+        "jaccard":0.2245119306,
+        "certainty":0.0569751332,
+        "kulczynski":0.3853396214,
+        "antecedents_str":"operator_Riska",
+        "consequents_str":"waktu_Siang",
+        "jumlah_item":2,
+        "is_anomaly":false,
+        "kategori_rule":"Moderate Pattern"
+    },
+    {
+        "antecedents":[
+            "produk_sunscreen oily acne new"
+        ],
+        "consequents":[
+            "waktu_Siang"
+        ],
+        "antecedent support":0.0466497031,
+        "consequent support":0.4380831213,
+        "support":0.0216284987,
+        "confidence":0.4636363636,
+        "lift":1.0583296665,
+        "representativity":1.0,
+        "leverage":0.0011920512,
+        "conviction":1.0476416383,
+        "zhangs_metric":0.0578117368,
+        "jaccard":0.0467032967,
+        "certainty":0.0454751286,
+        "kulczynski":0.2565035642,
+        "antecedents_str":"produk_sunscreen oily acne new",
+        "consequents_str":"waktu_Siang",
+        "jumlah_item":2,
+        "is_anomaly":false,
+        "kategori_rule":"Moderate Pattern"
+    },
+    {
+        "antecedents":[
+            "produk_radian brightening ultimate"
+        ],
+        "consequents":[
+            "waktu_Siang"
+        ],
+        "antecedent support":0.0313825276,
+        "consequent support":0.4380831213,
+        "support":0.0137828668,
+        "confidence":0.4391891892,
+        "lift":1.00252479,
+        "representativity":1.0,
+        "leverage":0.0000347112,
+        "conviction":1.0019722657,
+        "zhangs_metric":0.0026000269,
+        "jaccard":0.0302466263,
+        "certainty":0.0019683835,
+        "kulczynski":0.2353254755,
+        "antecedents_str":"produk_radian brightening ultimate",
+        "consequents_str":"waktu_Siang",
+        "jumlah_item":2,
+        "is_anomaly":false,
+        "kategori_rule":"Moderate Pattern"
+    }
+]

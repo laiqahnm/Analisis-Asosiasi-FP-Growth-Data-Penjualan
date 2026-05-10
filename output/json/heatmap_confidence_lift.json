@@ -1,0 +1,62 @@
+[
+    {
+        "antecedent": "produk_night cream brightening",
+        "consequent": "operator_Indah",
+        "confidence": 0.4181,
+        "lift": 1.4054
+    },
+    {
+        "antecedent": "produk_daily ceramois hydra gel",
+        "consequent": "waktu_Siang",
+        "confidence": 0.583,
+        "lift": 1.3307
+    },
+    {
+        "antecedent": "operator_Anisa",
+        "consequent": "waktu_Siang",
+        "confidence": 0.5758,
+        "lift": 1.3143
+    },
+    {
+        "antecedent": "waktu_Malam",
+        "consequent": "operator_Oktavira",
+        "confidence": 0.4036,
+        "lift": 1.2714
+    },
+    {
+        "antecedent": "produk_dna salmon extra marine collagen and hyaluronic acid 30 ml",
+        "consequent": "waktu_Siang",
+        "confidence": 0.5063,
+        "lift": 1.1558
+    },
+    {
+        "antecedent": "produk_sunscreen natural glow for normal skin new",
+        "consequent": "waktu_Siang",
+        "confidence": 0.4957,
+        "lift": 1.1314
+    },
+    {
+        "antecedent": "produk_paket acne 1",
+        "consequent": "waktu_Siang",
+        "confidence": 0.4754,
+        "lift": 1.0852
+    },
+    {
+        "antecedent": "operator_Riska",
+        "consequent": "waktu_Siang",
+        "confidence": 0.4701,
+        "lift": 1.0731
+    },
+    {
+        "antecedent": "produk_sunscreen oily acne new",
+        "consequent": "waktu_Siang",
+        "confidence": 0.4636,
+        "lift": 1.0583
+    },
+    {
+        "antecedent": "produk_radian brightening ultimate",
+        "consequent": "waktu_Siang",
+        "confidence": 0.4392,
+        "lift": 1.0025
+    }
+]
