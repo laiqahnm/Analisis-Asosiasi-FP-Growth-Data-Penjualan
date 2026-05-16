@@ -5,12 +5,12 @@ from tabulate import tabulate
 
 os.makedirs("output/evaluation_report", exist_ok=True)
 
-INPUT_EVALUATION = "output/testing_result/evaluation_testing_70_30.xlsx"
-INPUT_RINGKASAN = "output/testing_result/ringkasan_testing.xlsx"
+INPUT_EVALUATION = "output/testing_result_databaru/evaluation_testing_70_30.xlsx"
+INPUT_RINGKASAN = "output/testing_result_databaru/ringkasan_testing.xlsx"
 
-OUTPUT_TOP_RULES_EXCEL = "output/evaluation_report/top_rules_evaluation_70_30.xlsx"
-OUTPUT_RINGKASAN_EXCEL = "output/evaluation_report/ringkasan_evaluation_70_30.xlsx"
-OUTPUT_GAMBAR_TABLE = "output/evaluation_report/gambar_evaluasi_rules_70_30.png"
+OUTPUT_TOP_RULES_EXCEL = "output/evaluation_report/databaru_top_rules_evaluation_70_30.xlsx"
+OUTPUT_RINGKASAN_EXCEL = "output/evaluation_report/databaru_ringkasan_evaluation_70_30.xlsx"
+OUTPUT_GAMBAR_TABLE = "output/evaluation_report/databaru_gambar_evaluasi_rules_70_30.png"
 
 # LOAD DATA
 df_eval = pd.read_excel(INPUT_EVALUATION)

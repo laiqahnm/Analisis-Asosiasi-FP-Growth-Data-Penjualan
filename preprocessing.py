@@ -1,6 +1,6 @@
 import pandas as pd
 
-df = pd.read_excel("output/dataset_gabungan.xlsx")
+df = pd.read_excel("output/dataset_gabungan_baru.xlsx")
 
 # select column
 select_column = [
@@ -48,7 +48,7 @@ print("Jumlah data sebelum filter non-produk:", df.shape[0])
 
 df["detail_produk"] = df["detail_produk"].astype(str).str.strip()
 
-kata_non_produk = ["kardus", "pouch", "boxi", "paper bag", "bubble wrap", "tas", "plastik"]
+kata_non_produk = ["kardus", "lakban", "brosur", "clutch", "pouch", "boxi", "paper bag", "paperbag", "bubble wrap", "tas", "plastik", "tenteng", "cermin", "ongkir"]
 pattern = "|".join(kata_non_produk)
 
 df = df[~df["detail_produk"].str.contains(pattern, case=False, na=False)]
@@ -177,4 +177,4 @@ print("Jumlah operator unik:", df["operator"].nunique())
 #print("Jumlah metode pembayaran unik:", df["metode_pembayaran"].nunique())
 
 # save data
-df.to_excel("output/dataset_bersih.xlsx", index=False)
+df.to_excel("output/dataset_bersih_baru.xlsx", index=False)

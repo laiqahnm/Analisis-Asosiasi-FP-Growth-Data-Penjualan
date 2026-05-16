@@ -1,29 +1,26 @@
 import pandas as pd
 import os
 
-os.makedirs("output/testing_result", exist_ok=True)
+os.makedirs("output/testing_result_databaru", exist_ok=True)
 
-# PARAMETER UTAMA
 MIN_CONFIDENCE = 0.4
 MIN_LIFT = 1.0
 
-# SKENARIO TESTING
 skenario_testing = {
+    "60_40": {
+        "rules": "output/training_result_databaru/rules_training_filtered_60_40.xlsx",
+        "testing": "dataset/Dataset Baru/data_testing6040.xlsx"
+    },
     "70_30": {
-        "rules": "output/training_result/rules_training_filtered_70_30.xlsx",
-        "testing": "dataset/data_testing7030.xlsx"
+        "rules": "output/training_result_databaru/rules_training_filtered_70_30.xlsx",
+        "testing": "dataset/Dataset Baru/data_testing7030.xlsx"
     },
     "80_20": {
-        "rules": "output/training_result/rules_training_filtered_80_20.xlsx",
-        "testing": "dataset/data_testing8020.xlsx"
-    },
-    "60_40": {
-        "rules": "output/training_result/rules_training_filtered_60_40.xlsx",
-        "testing": "dataset/data_testing6040.xlsx"
+        "rules": "output/training_result_databaru/rules_training_filtered_80_20.xlsx",
+        "testing": "dataset/Dataset Baru/data_testing8020.xlsx"
     }
 }
 
-# FUNCTION
 def split_items(text):
     if pd.isna(text) or text == "":
         return set()
@@ -57,7 +54,6 @@ def buat_basket_testing(df):
     return basket
 
 
-# MAIN PROGRAM
 ringkasan_testing = []
 
 for nama_skenario, file_path in skenario_testing.items():
@@ -65,7 +61,14 @@ for nama_skenario, file_path in skenario_testing.items():
     print(f"TESTING SKENARIO {nama_skenario}")
     print("==============================")
 
-    # LOAD RULES TRAINING DAN DATA TESTING
+    if not os.path.exists(file_path["rules"]):
+        print("File rules tidak ditemukan:", file_path["rules"])
+        continue
+
+    if not os.path.exists(file_path["testing"]):
+        print("File testing tidak ditemukan:", file_path["testing"])
+        continue
+
     rules_training = pd.read_excel(file_path["rules"])
     df_testing = pd.read_excel(file_path["testing"])
 
@@ -75,15 +78,11 @@ for nama_skenario, file_path in skenario_testing.items():
     print("Jumlah baris data testing:", len(df_testing))
     print("Jumlah transaksi testing:", df_testing["no_transaksi"].nunique())
 
-    # BENTUK BASKET TESTING
     basket_testing = buat_basket_testing(df_testing)
     jumlah_transaksi_testing = len(basket_testing)
 
-    print("Jumlah basket testing:", jumlah_transaksi_testing)
-
     hasil_testing = []
 
-    # UJI SETIAP RULE TRAINING PADA DATA TESTING
     for _, rule in rules_training.iterrows():
         antecedent = split_items(rule["antecedents_str"])
         consequent = split_items(rule["consequents_str"])
@@ -102,35 +101,11 @@ for nama_skenario, file_path in skenario_testing.items():
             if antecedent.issubset(itemset) and consequent.issubset(itemset):
                 count_both += 1
 
-        antecedent_support = (
-            count_antecedent / jumlah_transaksi_testing
-            if jumlah_transaksi_testing > 0
-            else 0
-        )
-
-        consequent_support = (
-            count_consequent / jumlah_transaksi_testing
-            if jumlah_transaksi_testing > 0
-            else 0
-        )
-
-        support = (
-            count_both / jumlah_transaksi_testing
-            if jumlah_transaksi_testing > 0
-            else 0
-        )
-
-        confidence = (
-            count_both / count_antecedent
-            if count_antecedent > 0
-            else 0
-        )
-
-        lift = (
-            confidence / consequent_support
-            if consequent_support > 0
-            else 0
-        )
+        antecedent_support = count_antecedent / jumlah_transaksi_testing if jumlah_transaksi_testing > 0 else 0
+        consequent_support = count_consequent / jumlah_transaksi_testing if jumlah_transaksi_testing > 0 else 0
+        support = count_both / jumlah_transaksi_testing if jumlah_transaksi_testing > 0 else 0
+        confidence = count_both / count_antecedent if count_antecedent > 0 else 0
+        lift = confidence / consequent_support if consequent_support > 0 else 0
 
         kategori_rule = categorize_rule_testing(confidence, lift)
 
@@ -162,7 +137,6 @@ for nama_skenario, file_path in skenario_testing.items():
             "Status Pengujian": status_pengujian
         })
 
-    # SAVE HASIL TESTING
     df_hasil_testing = pd.DataFrame(hasil_testing)
 
     df_hasil_testing = df_hasil_testing.sort_values(
@@ -170,17 +144,11 @@ for nama_skenario, file_path in skenario_testing.items():
         ascending=[False, False, False]
     ).reset_index(drop=True)
 
-    output_testing = f"output/testing_result/evaluation_testing_{nama_skenario}.xlsx"
+    output_testing = f"output/testing_result_databaru/evaluation_testing_{nama_skenario}.xlsx"
     df_hasil_testing.to_excel(output_testing, index=False)
 
-    # RINGKASAN TESTING
-    jumlah_konsisten = len(
-        df_hasil_testing[df_hasil_testing["Status Pengujian"] == "Konsisten"]
-    )
-
-    jumlah_tidak_konsisten = len(
-        df_hasil_testing[df_hasil_testing["Status Pengujian"] == "Tidak Konsisten"]
-    )
+    jumlah_konsisten = len(df_hasil_testing[df_hasil_testing["Status Pengujian"] == "Konsisten"])
+    jumlah_tidak_konsisten = len(df_hasil_testing[df_hasil_testing["Status Pengujian"] == "Tidak Konsisten"])
 
     kategori_counts = df_hasil_testing["Kategori Rule"].value_counts()
 
@@ -207,9 +175,6 @@ for nama_skenario, file_path in skenario_testing.items():
 
     print("Jumlah rules konsisten:", jumlah_konsisten)
     print("Jumlah rules tidak konsisten:", jumlah_tidak_konsisten)
-    print("Strong Pattern:", strong_count)
-    print("Moderate Pattern:", moderate_count)
-    print("Weak Pattern:", weak_count)
     print("File hasil testing disimpan:", output_testing)
 
     print("\nTop 10 hasil testing:")
@@ -226,11 +191,10 @@ for nama_skenario, file_path in skenario_testing.items():
         ].head(10)
     )
 
-# SAVE RINGKASAN SEMUA SKENARIO
 df_ringkasan_testing = pd.DataFrame(ringkasan_testing)
 
 df_ringkasan_testing.to_excel(
-    "output/testing_result/ringkasan_testing.xlsx",
+    "output/testing_result_databaru/ringkasan_testing.xlsx",
     index=False
 )
 
