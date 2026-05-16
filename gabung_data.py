@@ -2,9 +2,6 @@ import pandas as pd
 import glob
 import os
 
-# ==============================
-# PATH FOLDER DATASET BARU
-# ==============================
 folder_path = "dataset/Dataset Baru"
 
 # Ambil semua file Excel
@@ -47,9 +44,7 @@ for file in files:
         print(f"Gagal membaca file {file}")
         print("Error:", e)
 
-# ==============================
 # GABUNGKAN DATA
-# ==============================
 if len(df_list) == 0:
     print("\nERROR: Tidak ada data yang berhasil dibaca.")
     exit()

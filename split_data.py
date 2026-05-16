@@ -16,15 +16,15 @@ transaksi_unik = df["no_transaksi"].drop_duplicates()
 
 train_transaksi, test_transaksi = train_test_split(
     transaksi_unik,
-    test_size=0.2,      
+    test_size=0.4,      
     random_state=42
 )
 
 df_training = df[df["no_transaksi"].isin(train_transaksi)].copy()
 df_testing = df[df["no_transaksi"].isin(test_transaksi)].copy()
 
-df_training.to_excel("dataset/Dataset Baru/data_training8020.xlsx", index=False)
-df_testing.to_excel("dataset/Dataset Baru/data_testing8020.xlsx", index=False)
+df_training.to_excel("dataset/Dataset Baru/data_training6040.xlsx", index=False)
+df_testing.to_excel("dataset/Dataset Baru/data_testing6040.xlsx", index=False)
 
 print("\n=== HASIL SPLIT DATA ===")
 print("Jumlah baris training:", len(df_training))
