@@ -1,3 +1,4 @@
+import os
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -21,11 +22,17 @@ OUTPUT_TOP_RULE_CHART = "output/images/grafik_top_rules.png"
 OUTPUT_SCATTER_RULE_CHART = "output/images/grafik_confidence_lift.png"
 OUTPUT_NETWORK_GRAPH = "output/images/network_association_rules.png"
 
+# folder output
+os.makedirs("output", exist_ok=True)
+os.makedirs("output/images", exist_ok=True)
+os.makedirs("output/json", exist_ok=True)
+
 # PARAMETER UTAMA
 # =========================
 MIN_SUPPORT = 0.01
 MIN_CONFIDENCE = 0.4
 MIN_LIFT = 1.0
+
 
 # FUNCTION
 # =========================
@@ -49,6 +56,26 @@ def categorize_rule(row: pd.Series) -> str:
     else:
         return "Weak Pattern"
 
+
+def save_rules_json(dataframe, filename):
+    hasil = []
+
+    for _, row in dataframe.iterrows():
+        hasil.append({
+            "rule": row["antecedents_str"] + " → " + row["consequents_str"],
+            "antecedent": row["antecedents_str"],
+            "consequent": row["consequents_str"],
+            "support": round(row["support"], 4),
+            "confidence": round(row["confidence"], 4),
+            "lift": round(row["lift"], 4),
+            "kategori_rule": row["kategori_rule"],
+            "is_anomaly": bool(row["is_anomaly"])
+        })
+
+    with open(filename, "w", encoding="utf-8") as f:
+        json.dump(hasil, f, indent=4, ensure_ascii=False)
+
+
 # LOAD DATA
 # =========================
 print("=== LOAD DATA ===")
@@ -59,6 +86,7 @@ df_fp = convert_to_bool(df_fp)
 
 print("\n=== INFO DATA ===")
 print(df_fp.info())
+
 
 # FP-GROWTH
 # =========================
@@ -115,15 +143,16 @@ rules["jumlah_item"] = (
 
 rules_3_variabel = rules[
     (rules["jumlah_item"] >= 3) &
-    (rules["antecedents_str"].str.contains("produk_")) &
-    (rules["antecedents_str"].str.contains("operator_")) &
-    (rules["consequents_str"].str.contains("waktu_"))
+    (rules["antecedents_str"].str.contains("produk_", case=False, na=False)) &
+    (rules["antecedents_str"].str.contains("operator_", case=False, na=False)) &
+    (rules["consequents_str"].str.contains("waktu_", case=False, na=False))
 ].copy()
 
 print("\n=== RULE 3 VARIABEL (PRODUK + OPERATOR → WAKTU) ===")
 print(rules_3_variabel.head())
 
 rules_3_variabel.to_excel("output/rules_3_variabel.xlsx", index=False)
+
 
 # DETEKSI ANOMALI IQR
 # =========================
@@ -137,7 +166,7 @@ q1_conf = rules["confidence"].quantile(0.25)
 q3_conf = rules["confidence"].quantile(0.75)
 iqr_conf = q3_conf - q1_conf
 
-lower_lift = q1_lift - 1.5 * iqr_lift #standar boxplot
+lower_lift = q1_lift - 1.5 * iqr_lift
 upper_lift = q3_lift + 1.5 * iqr_lift
 
 lower_conf = q1_conf - 1.5 * iqr_conf
@@ -176,6 +205,7 @@ print(
 
 rules.to_excel(OUTPUT_ASSOCIATION_RULES, index=False)
 
+
 # FILTER RULE
 # =========================
 print("\n=== FILTER RULE ASSOCIATION ===")
@@ -194,9 +224,17 @@ print("Jumlah rules setelah filter:", len(rules_filtered))
 
 rules_filtered.to_excel(OUTPUT_ASSOCIATION_RULES_FILTERED, index=False)
 
+
 # ANALISIS RULE PER VARIABEL
 # =========================
 print("\n=== ANALISIS RULE PER VARIABEL ===")
+
+rules_produk_produk = rules_filtered[
+    (rules_filtered["antecedents_str"].str.contains("produk_", case=False, na=False)) &
+    (rules_filtered["consequents_str"].str.contains("produk_", case=False, na=False)) &
+    (~rules_filtered["antecedents_str"].str.contains("operator_|waktu_", case=False, na=False)) &
+    (~rules_filtered["consequents_str"].str.contains("operator_|waktu_", case=False, na=False))
+].copy()
 
 rules_produk_waktu = rules_filtered[
     (rules_filtered["antecedents_str"].str.contains("produk_", case=False, na=False)) &
@@ -218,35 +256,35 @@ rules_waktu_operator = rules_filtered[
     (rules_filtered["consequents_str"].str.contains("operator_", case=False, na=False))
 ].copy()
 
+rules_produk_operator_waktu = rules_filtered[
+    (
+        rules_filtered["antecedents_str"].str.contains("produk_", case=False, na=False) |
+        rules_filtered["consequents_str"].str.contains("produk_", case=False, na=False)
+    ) &
+    (
+        rules_filtered["antecedents_str"].str.contains("operator_", case=False, na=False) |
+        rules_filtered["consequents_str"].str.contains("operator_", case=False, na=False)
+    ) &
+    (
+        rules_filtered["antecedents_str"].str.contains("waktu_", case=False, na=False) |
+        rules_filtered["consequents_str"].str.contains("waktu_", case=False, na=False)
+    )
+].copy()
 
-def save_rules_json(dataframe, filename):
-    hasil = []
-
-    for _, row in dataframe.iterrows():
-        hasil.append({
-            "rule": row["antecedents_str"] + " → " + row["consequents_str"],
-            "antecedent": row["antecedents_str"],
-            "consequent": row["consequents_str"],
-            "support": round(row["support"], 4),
-            "confidence": round(row["confidence"], 4),
-            "lift": round(row["lift"], 4),
-            "kategori_rule": row["kategori_rule"],
-            "is_anomaly": bool(row["is_anomaly"])
-        })
-
-    with open(filename, "w", encoding="utf-8") as f:
-        json.dump(hasil, f, indent=4, ensure_ascii=False)
-
-
+save_rules_json(rules_produk_produk, "output/json/rules_produk_produk.json")
 save_rules_json(rules_produk_waktu, "output/json/rules_produk_waktu.json")
 save_rules_json(rules_produk_operator, "output/json/rules_produk_operator.json")
 save_rules_json(rules_operator_waktu, "output/json/rules_operator_waktu.json")
 save_rules_json(rules_waktu_operator, "output/json/rules_waktu_operator.json")
+save_rules_json(rules_produk_operator_waktu, "output/json/rules_produk_operator_waktu.json")
 
+print("Jumlah rules produk → produk:", len(rules_produk_produk))
 print("Jumlah rules produk → waktu:", len(rules_produk_waktu))
 print("Jumlah rules produk → operator:", len(rules_produk_operator))
 print("Jumlah rules operator → waktu:", len(rules_operator_waktu))
 print("Jumlah rules waktu → operator:", len(rules_waktu_operator))
+print("Jumlah rules produk/operator/waktu:", len(rules_produk_operator_waktu))
+
 
 # RULE ANOMALI
 # =========================
@@ -270,7 +308,7 @@ print("\n=== VISUALISASI TOP PRODUK ===")
 
 single_items = frequent_itemsets[frequent_itemsets["jumlah_item"] == 1].copy()
 single_items = single_items[
-    ~single_items["itemsets_str"].str.contains("metode|waktu|operator", case=False)
+    ~single_items["itemsets_str"].str.contains("metode|waktu|operator", case=False, na=False)
 ]
 
 top_items = single_items.sort_values(
@@ -291,6 +329,7 @@ plt.ylabel("Produk")
 plt.tight_layout()
 plt.savefig(OUTPUT_TOP_ITEM_CHART, dpi=300)
 plt.show()
+
 
 # VISUALISASI 2: TOP ASSOCIATION RULES
 # =========================
@@ -319,6 +358,7 @@ plt.tight_layout()
 plt.savefig(OUTPUT_TOP_RULE_CHART, dpi=300)
 plt.show()
 
+
 # VISUALISASI 3: SCATTER CONFIDENCE VS LIFT
 # =========================
 print("\n=== VISUALISASI CONFIDENCE VS LIFT ===")
@@ -337,6 +377,7 @@ plt.ylabel("Lift")
 plt.tight_layout()
 plt.savefig(OUTPUT_SCATTER_RULE_CHART, dpi=300)
 plt.show()
+
 
 # VISUALISASI 4: NETWORK GRAPH
 # =========================
@@ -374,10 +415,7 @@ plt.savefig(OUTPUT_NETWORK_GRAPH, dpi=300)
 plt.show()
 
 
-print("\n=== SELESAI ===")
-
-# save file json
-# =========================
+print("\n=== SAVE JSON UTAMA ===")
 
 frequent_itemsets.to_json(
     "output/json/frequent_itemsets.json",
@@ -402,6 +440,7 @@ rules_anomaly.to_json(
     orient="records",
     indent=4
 )
+
 
 # 1. BAR CHART TOP 10 PRODUK
 single_produk = frequent_itemsets[
@@ -480,4 +519,6 @@ for _, row in distribusi_rules.iterrows():
 with open("output/json/distribusi_association_rules.json", "w", encoding="utf-8") as f:
     json.dump(distribusi_rules_json, f, indent=4, ensure_ascii=False)
 
+
 print("File JSON selesai")
+print("\n=== SELESAI ===")

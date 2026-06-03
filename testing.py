@@ -21,10 +21,16 @@ skenario_testing = {
     }
 }
 
+
 def split_items(text):
     if pd.isna(text) or text == "":
         return set()
-    return set([item.strip() for item in str(text).split(",")])
+
+    return set([
+        item.strip()
+        for item in str(text).split(",")
+        if item.strip() != ""
+    ])
 
 
 def categorize_rule_testing(confidence, lift):
@@ -36,8 +42,61 @@ def categorize_rule_testing(confidence, lift):
         return "Weak Pattern"
 
 
+def classify_rule_type(antecedents, consequents):
+    all_items = list(antecedents) + list(consequents)
+
+    has_produk = any(str(item).startswith("produk_") for item in all_items)
+    has_operator = any(str(item).startswith("operator_") for item in all_items)
+    has_waktu = any(str(item).startswith("waktu_") for item in all_items)
+
+    if has_produk and not has_operator and not has_waktu:
+        return "produk_produk"
+
+    if has_produk and has_operator and has_waktu:
+        return "produk_operator_waktu"
+
+    if has_produk and has_operator:
+        return "produk_operator"
+
+    if has_produk and has_waktu:
+        return "produk_waktu"
+
+    if has_operator and has_waktu:
+        return "operator_waktu"
+
+    return "lainnya"
+
+
+def label_jenis_rule(jenis_rule):
+    labels = {
+        "produk_produk": "Produk × Produk",
+        "produk_operator": "Produk × Operator",
+        "operator_waktu": "Operator × Waktu",
+        "produk_waktu": "Produk × Waktu",
+        "produk_operator_waktu": "Produk × Operator × Waktu",
+        "lainnya": "Lainnya",
+    }
+
+    return labels.get(jenis_rule, "Lainnya")
+
+
 def buat_basket_testing(df):
     df = df.copy()
+
+    required_columns = [
+        "no_transaksi",
+        "detail_produk",
+        "operator",
+        "kategori_waktu",
+    ]
+
+    missing_columns = [col for col in required_columns if col not in df.columns]
+
+    if missing_columns:
+        raise ValueError(
+            "Kolom wajib tidak ditemukan pada data testing: "
+            + ", ".join(missing_columns)
+        )
 
     df["item_produk"] = "produk_" + df["detail_produk"].astype(str).str.strip()
     df["item_operator"] = "operator_" + df["operator"].astype(str).str.strip()
@@ -87,6 +146,9 @@ for nama_skenario, file_path in skenario_testing.items():
         antecedent = split_items(rule["antecedents_str"])
         consequent = split_items(rule["consequents_str"])
 
+        jenis_rule = classify_rule_type(antecedent, consequent)
+        jenis_rule_label = label_jenis_rule(jenis_rule)
+
         count_antecedent = 0
         count_consequent = 0
         count_both = 0
@@ -118,6 +180,9 @@ for nama_skenario, file_path in skenario_testing.items():
             "Antecedent": rule["antecedents_str"],
             "Consequent": rule["consequents_str"],
 
+            "Jenis Rule": jenis_rule,
+            "Jenis Rule Label": jenis_rule_label,
+
             "Support Training": rule["support"],
             "Confidence Training": rule["confidence"],
             "Lift Training": rule["lift"],
@@ -138,6 +203,10 @@ for nama_skenario, file_path in skenario_testing.items():
         })
 
     df_hasil_testing = pd.DataFrame(hasil_testing)
+
+    if df_hasil_testing.empty:
+        print("Tidak ada hasil testing untuk skenario:", nama_skenario)
+        continue
 
     df_hasil_testing = df_hasil_testing.sort_values(
         by=["Lift", "Confidence", "Support"],
@@ -183,6 +252,7 @@ for nama_skenario, file_path in skenario_testing.items():
             [
                 "Antecedent",
                 "Consequent",
+                "Jenis Rule Label",
                 "Confidence",
                 "Lift",
                 "Kategori Rule",
@@ -190,6 +260,7 @@ for nama_skenario, file_path in skenario_testing.items():
             ]
         ].head(10)
     )
+
 
 df_ringkasan_testing = pd.DataFrame(ringkasan_testing)
 

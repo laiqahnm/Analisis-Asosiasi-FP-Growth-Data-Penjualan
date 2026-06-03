@@ -4,10 +4,13 @@ import os
 from mlxtend.preprocessing import TransactionEncoder
 from mlxtend.frequent_patterns import fpgrowth, association_rules
 
+
 # =========================
 # FOLDER OUTPUT
 # =========================
-os.makedirs("output/training_result_databaru", exist_ok=True)
+OUTPUT_DIR = "output/training_result_databaru"
+os.makedirs(OUTPUT_DIR, exist_ok=True)
+
 
 # =========================
 # PARAMETER UTAMA
@@ -15,6 +18,7 @@ os.makedirs("output/training_result_databaru", exist_ok=True)
 MIN_SUPPORT = 0.01
 MIN_CONFIDENCE = 0.4
 MIN_LIFT = 1.0
+
 
 # =========================
 # SKENARIO TRAINING
@@ -24,6 +28,7 @@ skenario_training = {
     "70_30": "dataset/Dataset Baru/data_training7030.xlsx",
     "80_20": "dataset/Dataset Baru/data_training8020.xlsx"
 }
+
 
 # =========================
 # FUNCTION
@@ -43,8 +48,61 @@ def categorize_rule(row):
         return "Weak Pattern"
 
 
+def classify_rule_type(antecedents, consequents):
+    all_items = list(antecedents) + list(consequents)
+
+    has_produk = any(str(item).startswith("produk_") for item in all_items)
+    has_operator = any(str(item).startswith("operator_") for item in all_items)
+    has_waktu = any(str(item).startswith("waktu_") for item in all_items)
+
+    if has_produk and not has_operator and not has_waktu:
+        return "produk_produk"
+
+    if has_produk and has_operator and has_waktu:
+        return "produk_operator_waktu"
+
+    if has_produk and has_operator:
+        return "produk_operator"
+
+    if has_produk and has_waktu:
+        return "produk_waktu"
+
+    if has_operator and has_waktu:
+        return "operator_waktu"
+
+    return "lainnya"
+
+
+def label_jenis_rule(jenis_rule):
+    labels = {
+        "produk_produk": "Produk × Produk",
+        "produk_operator": "Produk × Operator",
+        "operator_waktu": "Operator × Waktu",
+        "produk_waktu": "Produk × Waktu",
+        "produk_operator_waktu": "Produk × Operator × Waktu",
+        "lainnya": "Lainnya",
+    }
+
+    return labels.get(jenis_rule, "Lainnya")
+
+
 def buat_basket(df):
     df = df.copy()
+
+    required_columns = [
+        "no_transaksi",
+        "detail_produk",
+        "operator",
+        "kategori_waktu",
+    ]
+
+    missing_columns = [col for col in required_columns if col not in df.columns]
+
+    if missing_columns:
+        raise ValueError(
+            "Kolom wajib tidak ditemukan pada data training: "
+            + ", ".join(missing_columns)
+        )
 
     df["item_produk"] = "produk_" + df["detail_produk"].astype(str).str.strip()
     df["item_operator"] = "operator_" + df["operator"].astype(str).str.strip()
@@ -98,11 +156,16 @@ for nama_skenario, input_file in skenario_training.items():
         print("Tidak ada frequent itemset yang ditemukan.")
         continue
 
-    frequent_itemsets["itemsets_str"] = frequent_itemsets["itemsets"].apply(format_frozenset_to_string)
+    frequent_itemsets["itemsets_str"] = frequent_itemsets["itemsets"].apply(
+        format_frozenset_to_string
+    )
+
     frequent_itemsets["jumlah_item"] = frequent_itemsets["itemsets"].apply(len)
 
-    output_itemsets = f"output/training_result_databaru/frequent_itemsets_{nama_skenario}.xlsx"
-    frequent_itemsets.to_excel(output_itemsets, index=False)
+    frequent_itemsets = frequent_itemsets.sort_values(
+        by="support",
+        ascending=False
+    ).reset_index(drop=True)
 
     print("Jumlah frequent itemset:", len(frequent_itemsets))
 
@@ -116,8 +179,13 @@ for nama_skenario, input_file in skenario_training.items():
         print("Tidak ada association rules yang ditemukan.")
         continue
 
-    rules["antecedents_str"] = rules["antecedents"].apply(format_frozenset_to_string)
-    rules["consequents_str"] = rules["consequents"].apply(format_frozenset_to_string)
+    rules["antecedents_str"] = rules["antecedents"].apply(
+        format_frozenset_to_string
+    )
+
+    rules["consequents_str"] = rules["consequents"].apply(
+        format_frozenset_to_string
+    )
 
     rules["jumlah_item"] = (
         rules["antecedents"].apply(len) +
@@ -126,12 +194,20 @@ for nama_skenario, input_file in skenario_training.items():
 
     rules["kategori_rule"] = rules.apply(categorize_rule, axis=1)
 
+    # Tambahan untuk mengenali jenis rule, termasuk Produk × Produk
+    rules["jenis_rule"] = rules.apply(
+        lambda row: classify_rule_type(row["antecedents"], row["consequents"]),
+        axis=1
+    )
+
+    rules["jenis_rule_label"] = rules["jenis_rule"].apply(label_jenis_rule)
+
     rules = rules.sort_values(
         by=["lift", "confidence", "support"],
         ascending=[False, False, False]
     ).reset_index(drop=True)
 
-    output_rules = f"output/training_result_databaru/rules_training_{nama_skenario}.xlsx"
+    output_rules = f"{OUTPUT_DIR}/rules_training_{nama_skenario}.xlsx"
     rules.to_excel(output_rules, index=False)
 
     rules_filtered = rules[
@@ -144,14 +220,45 @@ for nama_skenario, input_file in skenario_training.items():
         ascending=[False, False, False]
     ).reset_index(drop=True)
 
-    output_rules_filtered = f"output/training_result_databaru/rules_training_filtered_{nama_skenario}.xlsx"
+    output_rules_filtered = f"{OUTPUT_DIR}/rules_training_filtered_{nama_skenario}.xlsx"
     rules_filtered.to_excel(output_rules_filtered, index=False)
+
+    jumlah_produk_produk = len(
+        rules_filtered[rules_filtered["jenis_rule"] == "produk_produk"]
+    )
+
+    jumlah_produk_operator = len(
+        rules_filtered[rules_filtered["jenis_rule"] == "produk_operator"]
+    )
+
+    jumlah_operator_waktu = len(
+        rules_filtered[rules_filtered["jenis_rule"] == "operator_waktu"]
+    )
+
+    jumlah_produk_waktu = len(
+        rules_filtered[rules_filtered["jenis_rule"] == "produk_waktu"]
+    )
+
+    jumlah_produk_operator_waktu = len(
+        rules_filtered[rules_filtered["jenis_rule"] == "produk_operator_waktu"]
+    )
+
+    jumlah_lainnya = len(
+        rules_filtered[rules_filtered["jenis_rule"] == "lainnya"]
+    )
 
     print("Jumlah semua rules:", len(rules))
     print("Jumlah rules setelah filter:", len(rules_filtered))
 
-    print("File frequent itemset disimpan:", output_itemsets)
-    print("File semua rules disimpan:", output_rules)
+    print("\nJumlah rules per jenis:")
+    print("Produk × Produk:", jumlah_produk_produk)
+    print("Produk × Operator:", jumlah_produk_operator)
+    print("Operator × Waktu:", jumlah_operator_waktu)
+    print("Produk × Waktu:", jumlah_produk_waktu)
+    print("Produk × Operator × Waktu:", jumlah_produk_operator_waktu)
+    print("Lainnya:", jumlah_lainnya)
+
+    print("\nFile semua rules disimpan:", output_rules)
     print("File rules filtered disimpan:", output_rules_filtered)
 
     print("\nTop 10 rules filtered:")
@@ -163,7 +270,8 @@ for nama_skenario, input_file in skenario_training.items():
                 "support",
                 "confidence",
                 "lift",
-                "kategori_rule"
+                "kategori_rule",
+                "jenis_rule_label"
             ]
         ].head(10)
     )

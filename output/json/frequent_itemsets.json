@@ -50,8 +50,8 @@
     {
         "support":0.1316793893,
         "itemsets":[
-            "waktu_Siang",
-            "operator_Riska"
+            "operator_Riska",
+            "waktu_Siang"
         ],
         "itemsets_str":"operator_Riska, waktu_Siang",
         "jumlah_item":2
@@ -59,8 +59,8 @@
     {
         "support":0.1231976251,
         "itemsets":[
-            "waktu_Siang",
-            "operator_Indah"
+            "operator_Indah",
+            "waktu_Siang"
         ],
         "itemsets_str":"operator_Indah, waktu_Siang",
         "jumlah_item":2
@@ -68,8 +68,8 @@
     {
         "support":0.1227735369,
         "itemsets":[
-            "waktu_Siang",
-            "operator_Oktavira"
+            "operator_Oktavira",
+            "waktu_Siang"
         ],
         "itemsets_str":"operator_Oktavira, waktu_Siang",
         "jumlah_item":2
@@ -112,8 +112,8 @@
     {
         "support":0.0888464801,
         "itemsets":[
-            "waktu_Pagi",
-            "operator_Indah"
+            "operator_Indah",
+            "waktu_Pagi"
         ],
         "itemsets_str":"operator_Indah, waktu_Pagi",
         "jumlah_item":2
@@ -130,8 +130,8 @@
     {
         "support":0.06043257,
         "itemsets":[
-            "waktu_Siang",
-            "operator_Anisa"
+            "operator_Anisa",
+            "waktu_Siang"
         ],
         "itemsets_str":"operator_Anisa, waktu_Siang",
         "jumlah_item":2
@@ -196,8 +196,8 @@
     {
         "support":0.0347752332,
         "itemsets":[
-            "waktu_Pagi",
-            "operator_Anisa"
+            "operator_Anisa",
+            "waktu_Pagi"
         ],
         "itemsets_str":"operator_Anisa, waktu_Pagi",
         "jumlah_item":2
@@ -278,8 +278,8 @@
     {
         "support":0.0216284987,
         "itemsets":[
-            "waktu_Siang",
-            "produk_sunscreen oily acne new"
+            "produk_sunscreen oily acne new",
+            "waktu_Siang"
         ],
         "itemsets_str":"produk_sunscreen oily acne new, waktu_Siang",
         "jumlah_item":2
@@ -312,8 +312,8 @@
     {
         "support":0.0205682782,
         "itemsets":[
-            "produk_night cream brightening",
-            "operator_Indah"
+            "operator_Indah",
+            "produk_night cream brightening"
         ],
         "itemsets_str":"operator_Indah, produk_night cream brightening",
         "jumlah_item":2
@@ -386,8 +386,8 @@
     {
         "support":0.0165394402,
         "itemsets":[
-            "waktu_Siang",
-            "produk_hb dosting 75 gram"
+            "produk_hb dosting 75 gram",
+            "waktu_Siang"
         ],
         "itemsets_str":"produk_hb dosting 75 gram, waktu_Siang",
         "jumlah_item":2
@@ -429,8 +429,8 @@
     {
         "support":0.0152671756,
         "itemsets":[
-            "produk_sunscreen oily acne new",
-            "operator_Riska"
+            "operator_Riska",
+            "produk_sunscreen oily acne new"
         ],
         "itemsets_str":"operator_Riska, produk_sunscreen oily acne new",
         "jumlah_item":2
@@ -463,8 +463,8 @@
     {
         "support":0.0146310433,
         "itemsets":[
-            "produk_sunscreen oily acne new",
-            "operator_Oktavira"
+            "operator_Oktavira",
+            "produk_sunscreen oily acne new"
         ],
         "itemsets_str":"operator_Oktavira, produk_sunscreen oily acne new",
         "jumlah_item":2
@@ -480,8 +480,8 @@
     {
         "support":0.014206955,
         "itemsets":[
-            "produk_sunscreen oily acne new",
-            "operator_Indah"
+            "operator_Indah",
+            "produk_sunscreen oily acne new"
         ],
         "itemsets_str":"operator_Indah, produk_sunscreen oily acne new",
         "jumlah_item":2
@@ -506,8 +506,8 @@
     {
         "support":0.0137828668,
         "itemsets":[
-            "waktu_Siang",
-            "produk_paket brightening"
+            "produk_paket brightening",
+            "waktu_Siang"
         ],
         "itemsets_str":"produk_paket brightening, waktu_Siang",
         "jumlah_item":2
@@ -615,8 +615,8 @@
     {
         "support":0.0127226463,
         "itemsets":[
-            "produk_hb dosting 75 gram",
-            "operator_Riska"
+            "operator_Riska",
+            "produk_hb dosting 75 gram"
         ],
         "itemsets_str":"operator_Riska, produk_hb dosting 75 gram",
         "jumlah_item":2
@@ -632,8 +632,8 @@
     {
         "support":0.0125106022,
         "itemsets":[
-            "produk_daily ceramois hydra gel",
-            "operator_Oktavira"
+            "operator_Oktavira",
+            "produk_daily ceramois hydra gel"
         ],
         "itemsets_str":"operator_Oktavira, produk_daily ceramois hydra gel",
         "jumlah_item":2
@@ -641,8 +641,8 @@
     {
         "support":0.0125106022,
         "itemsets":[
-            "produk_daily ceramois hydra gel",
-            "operator_Riska"
+            "operator_Riska",
+            "produk_daily ceramois hydra gel"
         ],
         "itemsets_str":"operator_Riska, produk_daily ceramois hydra gel",
         "jumlah_item":2
@@ -650,8 +650,8 @@
     {
         "support":0.0125106022,
         "itemsets":[
-            "produk_daily ceramois hydra gel",
-            "operator_Indah"
+            "operator_Indah",
+            "produk_daily ceramois hydra gel"
         ],
         "itemsets_str":"operator_Indah, produk_daily ceramois hydra gel",
         "jumlah_item":2
@@ -667,8 +667,8 @@
     {
         "support":0.0122985581,
         "itemsets":[
-            "produk_hb dosting 75 gram",
-            "operator_Indah"
+            "operator_Indah",
+            "produk_hb dosting 75 gram"
         ],
         "itemsets_str":"operator_Indah, produk_hb dosting 75 gram",
         "jumlah_item":2
@@ -676,8 +676,8 @@
     {
         "support":0.0122985581,
         "itemsets":[
-            "produk_paket brightening",
-            "operator_Indah"
+            "operator_Indah",
+            "produk_paket brightening"
         ],
         "itemsets_str":"operator_Indah, produk_paket brightening",
         "jumlah_item":2
@@ -685,8 +685,8 @@
     {
         "support":0.0122985581,
         "itemsets":[
-            "waktu_Siang",
-            "produk_paket acne 1"
+            "produk_paket acne 1",
+            "waktu_Siang"
         ],
         "itemsets_str":"produk_paket acne 1, waktu_Siang",
         "jumlah_item":2
@@ -694,8 +694,8 @@
     {
         "support":0.012086514,
         "itemsets":[
-            "produk_serum brightening glowing",
-            "waktu_Siang"
+            "waktu_Siang",
+            "produk_serum brightening glowing"
         ],
         "itemsets_str":"produk_serum brightening glowing, waktu_Siang",
         "jumlah_item":2
@@ -703,8 +703,8 @@
     {
         "support":0.012086514,
         "itemsets":[
-            "waktu_Siang",
-            "produk_sunscreen glowing new"
+            "produk_sunscreen glowing new",
+            "waktu_Siang"
         ],
         "itemsets_str":"produk_sunscreen glowing new, waktu_Siang",
         "jumlah_item":2
@@ -712,8 +712,8 @@
     {
         "support":0.012086514,
         "itemsets":[
-            "produk_dna salmon extra marine collagen and hyaluronic acid 30 ml",
-            "operator_Indah"
+            "operator_Indah",
+            "produk_dna salmon extra marine collagen and hyaluronic acid 30 ml"
         ],
         "itemsets_str":"operator_Indah, produk_dna salmon extra marine collagen and hyaluronic acid 30 ml",
         "jumlah_item":2
@@ -721,8 +721,8 @@
     {
         "support":0.012086514,
         "itemsets":[
-            "produk_serum brightening glowing",
-            "operator_Indah"
+            "operator_Indah",
+            "produk_serum brightening glowing"
         ],
         "itemsets_str":"operator_Indah, produk_serum brightening glowing",
         "jumlah_item":2
@@ -730,8 +730,8 @@
     {
         "support":0.012086514,
         "itemsets":[
-            "waktu_Siang",
-            "produk_sunscreen natural glow for normal skin new"
+            "produk_sunscreen natural glow for normal skin new",
+            "waktu_Siang"
         ],
         "itemsets_str":"produk_sunscreen natural glow for normal skin new, waktu_Siang",
         "jumlah_item":2
@@ -765,8 +765,8 @@
     {
         "support":0.0118744699,
         "itemsets":[
-            "waktu_Pagi",
-            "produk_night cream brightening"
+            "produk_night cream brightening",
+            "waktu_Pagi"
         ],
         "itemsets_str":"produk_night cream brightening, waktu_Pagi",
         "jumlah_item":2
@@ -800,8 +800,8 @@
     {
         "support":0.0114503817,
         "itemsets":[
-            "waktu_Siang",
-            "produk_paket custom"
+            "produk_paket custom",
+            "waktu_Siang"
         ],
         "itemsets_str":"produk_paket custom, waktu_Siang",
         "jumlah_item":2
@@ -852,8 +852,8 @@
     {
         "support":0.0110262935,
         "itemsets":[
-            "waktu_Pagi",
-            "produk_paket brightening"
+            "produk_paket brightening",
+            "waktu_Pagi"
         ],
         "itemsets_str":"produk_paket brightening, waktu_Pagi",
         "jumlah_item":2
@@ -869,8 +869,8 @@
     {
         "support":0.0110262935,
         "itemsets":[
-            "produk_daily ceramois hydra gel",
-            "waktu_Malam"
+            "waktu_Malam",
+            "produk_daily ceramois hydra gel"
         ],
         "itemsets_str":"produk_daily ceramois hydra gel, waktu_Malam",
         "jumlah_item":2
@@ -912,8 +912,8 @@
     {
         "support":0.0106022053,
         "itemsets":[
-            "operator_Oktavira",
-            "produk_sunscreen glowing new"
+            "produk_sunscreen glowing new",
+            "operator_Oktavira"
         ],
         "itemsets_str":"operator_Oktavira, produk_sunscreen glowing new",
         "jumlah_item":2
@@ -921,8 +921,8 @@
     {
         "support":0.0103901612,
         "itemsets":[
-            "produk_facial wash oily acne 110 ml new",
-            "operator_Indah"
+            "operator_Indah",
+            "produk_facial wash oily acne 110 ml new"
         ],
         "itemsets_str":"operator_Indah, produk_facial wash oily acne 110 ml new",
         "jumlah_item":2
@@ -979,8 +979,8 @@
     {
         "support":0.010178117,
         "itemsets":[
-            "waktu_Pagi",
-            "produk_sunscreen glowing new"
+            "produk_sunscreen glowing new",
+            "waktu_Pagi"
         ],
         "itemsets_str":"produk_sunscreen glowing new, waktu_Pagi",
         "jumlah_item":2

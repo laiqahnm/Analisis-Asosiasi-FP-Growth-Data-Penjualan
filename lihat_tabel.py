@@ -1,9 +1,25 @@
 # %%
 import pandas as pd
+from IPython.display import display
 
 # %%
-df = pd.read_excel("output/evaluation_report/databaru_top_rules_evaluation_70_30.xlsx")
+df = pd.read_excel("output/dataset_gabungan.xlsx")
 
+kolom_tampil = [
+    "No Transaksi",
+    "Tanggal",
+    "Waktu",
+    "Operator",
+    "Metode Pembayaran",
+    "Detail Produk",
+    "Banyak Penjualan",
+    "Penjualan Bersih"
+]
+
+display(df[kolom_tampil].head())
+
+df.info()
 # %%
 df
 # %%
+
