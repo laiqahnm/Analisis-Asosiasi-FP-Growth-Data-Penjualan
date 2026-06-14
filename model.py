@@ -28,14 +28,11 @@ os.makedirs("output/images", exist_ok=True)
 os.makedirs("output/json", exist_ok=True)
 
 # PARAMETER UTAMA
-# =========================
 MIN_SUPPORT = 0.01
 MIN_CONFIDENCE = 0.4
 MIN_LIFT = 1.0
 
-
 # FUNCTION
-# =========================
 def convert_to_bool(df: pd.DataFrame) -> pd.DataFrame:
     for col in df.columns:
         df[col] = df[col].astype(bool)
@@ -77,20 +74,18 @@ def save_rules_json(dataframe, filename):
 
 
 # LOAD DATA
-# =========================
-print("=== LOAD DATA ===")
+print("---Load Data---")
 df_fp = pd.read_excel(INPUT_FILE)
 print("Ukuran dataset:", df_fp.shape)
 
 df_fp = convert_to_bool(df_fp)
 
-print("\n=== INFO DATA ===")
+print("\n---Informasi Dataset---")
 print(df_fp.info())
 
 
 # FP-GROWTH
-# =========================
-print("\n=== PROSES FP-GROWTH ===")
+print("\n---Proses FP-Growth---")
 
 frequent_itemsets = fpgrowth(
     df_fp,
@@ -120,8 +115,7 @@ frequent_itemsets.to_excel(OUTPUT_FREQUENT_ITEMSETS, index=False)
 
 
 # ASSOCIATION RULES
-# =========================
-print("\n=== PROSES ASSOCIATION RULES ===")
+print("\n---Proses Association Rules---")
 
 rules = association_rules(
     frequent_itemsets.drop(columns=["itemsets_str", "jumlah_item"]),
@@ -148,15 +142,14 @@ rules_3_variabel = rules[
     (rules["consequents_str"].str.contains("waktu_", case=False, na=False))
 ].copy()
 
-print("\n=== RULE 3 VARIABEL (PRODUK + OPERATOR → WAKTU) ===")
+print("\n---Association Rules dengan 3 Variabel---")
 print(rules_3_variabel.head())
 
 rules_3_variabel.to_excel("output/rules_3_variabel.xlsx", index=False)
 
 
-# DETEKSI ANOMALI IQR
-# =========================
-print("\n=== DETEKSI ANOMALI IQR ===")
+# DETEKSI ANOMALI DENGAN IQR
+print("\n---Deteksi Anomali dengan IQR---")
 
 q1_lift = rules["lift"].quantile(0.25)
 q3_lift = rules["lift"].quantile(0.75)
@@ -207,8 +200,7 @@ rules.to_excel(OUTPUT_ASSOCIATION_RULES, index=False)
 
 
 # FILTER RULE
-# =========================
-print("\n=== FILTER RULE ASSOCIATION ===")
+print("\n---Filter Rule Association---")
 
 rules_filtered = rules[
     (rules["lift"] > MIN_LIFT) &
@@ -229,8 +221,7 @@ print("Jumlah rules filter :", len(rules_filtered))
 
 
 # ANALISIS RULE PER VARIABEL
-# =========================
-print("\n=== ANALISIS RULE PER VARIABEL ===")
+print("\n---Analisis Rule per Variabel---")
 
 rules_produk_produk = rules_filtered[
     (rules_filtered["antecedents_str"].str.contains("produk_", case=False, na=False)) &
@@ -290,8 +281,7 @@ print("Jumlah rules produk/operator/waktu:", len(rules_produk_operator_waktu))
 
 
 # RULE ANOMALI
-# =========================
-print("RULE ANOMALI")
+print("---Rule Anomali---")
 
 rules_anomaly = rules[rules["is_anomaly"] == True].copy()
 
@@ -307,8 +297,7 @@ rules_anomaly.to_excel(OUTPUT_ANOMALY_RULES, index=False)
 
 
 # VISUALISASI 1: TOP PRODUK
-# =========================
-print("\n=== VISUALISASI TOP PRODUK ===")
+print("\n---Visualisasi Top Produk---")
 
 single_items = frequent_itemsets[frequent_itemsets["jumlah_item"] == 1].copy()
 single_items = single_items[
@@ -336,8 +325,7 @@ plt.show()
 
 
 # VISUALISASI 2: TOP ASSOCIATION RULES
-# =========================
-print("\n=== VISUALISASI TOP RULES ===")
+print("\n---Visualisasi Top Rules---")
 
 top_rules = rules_filtered.sort_values(
     by="lift",
@@ -364,8 +352,7 @@ plt.show()
 
 
 # VISUALISASI 3: SCATTER CONFIDENCE VS LIFT
-# =========================
-print("\n=== VISUALISASI CONFIDENCE VS LIFT ===")
+print("\n---Visualisasi Confidence vs Lift---")
 
 plt.figure(figsize=(9, 6))
 sns.scatterplot(
@@ -384,8 +371,7 @@ plt.show()
 
 
 # VISUALISASI 4: NETWORK GRAPH
-# =========================
-print("\n=== VISUALISASI NETWORK GRAPH ===")
+print("\n---Visualisasi Network Graph---")
 
 top_network_rules = rules_filtered.sort_values(
     by="lift",
@@ -419,7 +405,7 @@ plt.savefig(OUTPUT_NETWORK_GRAPH, dpi=300)
 plt.show()
 
 
-print("\n=== SAVE JSON UTAMA ===")
+print("\n---Save JSON Utama---")
 
 frequent_itemsets.to_json(
     "output/json/frequent_itemsets.json",
@@ -525,4 +511,4 @@ with open("output/json/distribusi_association_rules.json", "w", encoding="utf-8"
 
 
 print("File JSON selesai")
-print("\n=== SELESAI ===")
+print("\nFinish")
