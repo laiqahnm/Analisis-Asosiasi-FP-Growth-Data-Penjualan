@@ -224,6 +224,9 @@ print("Jumlah rules setelah filter:", len(rules_filtered))
 
 rules_filtered.to_excel(OUTPUT_ASSOCIATION_RULES_FILTERED, index=False)
 
+print("Jumlah rules awal :", len(rules))
+print("Jumlah rules filter :", len(rules_filtered))
+
 
 # ANALISIS RULE PER VARIABEL
 # =========================
@@ -288,7 +291,7 @@ print("Jumlah rules produk/operator/waktu:", len(rules_produk_operator_waktu))
 
 # RULE ANOMALI
 # =========================
-print("\n=== RULE ANOMALI ===")
+print("RULE ANOMALI")
 
 rules_anomaly = rules[rules["is_anomaly"] == True].copy()
 
@@ -297,6 +300,7 @@ rules_anomaly = rules_anomaly.sort_values(
     ascending=[True, True, False]
 ).reset_index(drop=True)
 
+print("Jumlah association rules:", len(rules))
 print("Jumlah rules anomali:", len(rules_anomaly))
 
 rules_anomaly.to_excel(OUTPUT_ANOMALY_RULES, index=False)

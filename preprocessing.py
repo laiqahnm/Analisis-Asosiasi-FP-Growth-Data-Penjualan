@@ -8,14 +8,13 @@ select_column = [
     "Tanggal",
     "Waktu",
     "Operator",
-    #"Metode Pembayaran",
     "Detail Produk",
     "Penjualan Bersih"
 ]
 
 df = df[select_column].copy()
 
-print("=== SELECTED COLUMN ===")
+print("---select column---")
 print(df.columns.tolist())
 
 # rename kolom
@@ -24,15 +23,15 @@ df = df.rename(columns={
     "Tanggal": "tanggal",
     "Waktu": "waktu",
     "Operator": "operator",
-    #"Metode Pembayaran": "metode_pembayaran",
     "Detail Produk": "detail_produk",
     "Penjualan Bersih": "penjualan_bersih"
 })
 
-print("=== KOLOM SETELAH RENAME ===")
+print("---column after rename---")
 print(df.columns.tolist())
 
 # Hapus operator yang penjualannya sedikit
+# mengurangi imbalace data yang tidak representatif
 df["operator"] = df["operator"].astype(str).str.strip().str.lower()
 
 operator_dihapus = ["devi", "dina", "owner"]
@@ -43,7 +42,7 @@ print("Jumlah data setelah operator tertentu dihapus:")
 print(df["operator"].value_counts())
 
 # hapus item non-produk
-print("\n=== FILTER PRODUK NON-SKINCARE ===")
+print("\n ---filter produk non skincare---")
 print("Jumlah data sebelum filter non-produk:", df.shape[0])
 
 df["detail_produk"] = df["detail_produk"].astype(str).str.strip()
@@ -56,15 +55,15 @@ df = df[~df["detail_produk"].str.contains(pattern, case=False, na=False)]
 print("Jumlah data sesudah filter non-produk:", df.shape[0])
 
 # missing value
-print("\n=== CEK MISSING VALUE ===")
+print("\n---cek missing value---")
 print(df.isnull().sum())
 
 # duplikat
-print("\n=== CEK DUPLIKAT ===")
+print("\n---check duplicate---")
 print("Jumlah duplikat:", df.duplicated().sum())
 
-# hapus duplikat
-print("\n=== HAPUS DUPLIKAT ===")
+# hapus duplikat setelah select kolom
+print("\n---delete duplicate---")
 print("Jumlah data sebelum hapus duplikat:", df.shape[0])
 
 df = df.drop_duplicates()
@@ -110,11 +109,10 @@ if "tanggal" in df.columns:
 if "penjualan_bersih" in df.columns:
     df["penjualan_bersih"] = pd.to_numeric(df["penjualan_bersih"], errors="coerce")
 
-print("\n=== INFO DATA SETELAH UBAH TIPE ===")
+print("\n---info data setelah perubahan type---")
 print(df.info())
 
 # ubah kategori waktu
-
 df["waktu_parsed"] = pd.to_datetime(df["waktu"], errors="coerce")
 df["jam"] = df["waktu_parsed"].dt.hour
 
@@ -132,11 +130,11 @@ df["kategori_waktu"] = df["jam"].apply(kategori_waktu)
 df["waktu"] = df["waktu_parsed"].dt.strftime("%H:%M")
 df = df.drop(columns=["waktu_parsed", "jam"])
 
-print("\n=== HASIL WAKTU DAN KATEGORI ===")
+print("\n---hasil kategori waktu---")
 print(df[["waktu", "kategori_waktu"]].head(10))
 
 # cleansing hasil refund
-print("\n=== FILTER HASIL REFUND  ===")
+print("\n---filter hasil refund---")
 print("Jumlah data sebelum filter minus:", df.shape[0])
 
 
@@ -145,7 +143,7 @@ df = df[df["penjualan_bersih"] > 0]
 print("Jumlah data sesudah filter minus:", df.shape[0])
 
 # analisis deskriptif produk
-print("\n=== JUMLAH PER PRODUK TERJUAL ===")
+print("\n---jumlah penjualan per produk---")
 produk_rekap = df["detail_produk"].value_counts().reset_index()
 produk_rekap.columns = ["nama_produk", "jumlah_terjual"]
 print(produk_rekap.head())
@@ -154,14 +152,14 @@ produk_rekap = produk_rekap.sort_values(by="jumlah_terjual", ascending=False)
 produk_rekap.to_excel("output/rekap_produk.xlsx", index=False)
 
 # analisis distribusi waktu
-print("\n=== DISTRIBUSI PENJUALAN BERDASARKAN WAKTU ===")
+print("\n---distribusi penjualan berdasarkan waktu---")
 
 waktu_dist = (df["kategori_waktu"].value_counts(normalize=True) * 100).reset_index()
 waktu_dist.columns = ["kategori_waktu", "persentase"]
 print(waktu_dist)
 
 # hitung persentase penjualan per operator
-print("\n=== ANALISIS OPERATOR BERDASARKAN WAKTU ===")
+print("\n---analisis operator berdasarkan waktu---")
 
 operator_waktu = df.groupby(["operator", "kategori_waktu"]).size().reset_index(name="jumlah")
 operator_waktu["persentase"] = operator_waktu.groupby("operator")["jumlah"].transform(lambda x: x / x.sum() * 100)
@@ -170,7 +168,7 @@ operator_waktu = operator_waktu.sort_values(by="jumlah", ascending=False).reset_
 print(operator_waktu.sort_values(by="jumlah", ascending=False).head(20))
 
 # validasi data unik
-print("\n=== RINGKASAN DATA ===")
+print("\n---ringkasan data---")
 print("Jumlah transaksi unik:", df["no_transaksi"].nunique())
 print("Jumlah produk unik:", df["detail_produk"].nunique())
 print("Jumlah operator unik:", df["operator"].nunique())

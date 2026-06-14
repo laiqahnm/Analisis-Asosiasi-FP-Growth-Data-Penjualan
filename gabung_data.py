@@ -8,7 +8,7 @@ folder_path = "dataset/Dataset Baru"
 files = glob.glob(os.path.join(folder_path, "*.xls")) + \
         glob.glob(os.path.join(folder_path, "*.xlsx"))
 
-print("=== PROSES GABUNG DATA ===")
+print("---PROSES GABUNG DATA---")
 print("Folder yang dibaca:", folder_path)
 print("Jumlah file ditemukan:", len(files))
 print("File ditemukan:", files)
@@ -21,9 +21,7 @@ if len(files) == 0:
 
 df_list = []
 
-# ==============================
-# BACA SETIAP FILE
-# ==============================
+# read file
 for file in files:
     print(f"\nMembaca file: {file}")
 
@@ -54,22 +52,19 @@ df_all = pd.concat(df_list, ignore_index=True)
 print("\n=== DATA SEBELUM HAPUS DUPLIKAT ===")
 print(df_all.shape)
 
-# Hapus duplikat
+# Hapus duplikat (transaksi harus tercatat satu kali)
 df_all = df_all.drop_duplicates()
 
-print("\n=== DATA SETELAH HAPUS DUPLIKAT ===")
+print("\n---DATA SETELAH HAPUS DUPLIKAT---")
 print(df_all.shape)
 
-# ==============================
-# INFO DATA
-# ==============================
-print("\n=== SAMPLE DATA ===")
+print("\n---SAMPLE DATA---")
 print(df_all.head())
 
-print("\n=== NAMA KOLOM ===")
+print("\n---NAMA KOLOM---")
 print(df_all.columns)
 
-print("\n=== DATA KOSONG ===")
+print("\n---DATA KOSONG---")
 print(df_all.isnull().sum())
 
 # save
@@ -78,6 +73,6 @@ os.makedirs("output", exist_ok=True)
 output_path = "output/dataset_gabungan_baru.xlsx"
 df_all.to_excel(output_path, index=False)
 
-print("\n=== SELESAI ===")
+print("\n---finish---")
 print(f"Jumlah data akhir: {df_all.shape}")
 print(f"Disimpan di: {output_path}")

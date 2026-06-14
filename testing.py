@@ -9,15 +9,15 @@ MIN_LIFT = 1.0
 skenario_testing = {
     "60_40": {
         "rules": "output/training_result_databaru/rules_training_filtered_60_40.xlsx",
-        "testing": "dataset/Dataset Baru/data_testing6040.xlsx"
+        "testing": "dataset/Split data testing/data_testing6040.xlsx"
     },
     "70_30": {
         "rules": "output/training_result_databaru/rules_training_filtered_70_30.xlsx",
-        "testing": "dataset/Dataset Baru/data_testing7030.xlsx"
+        "testing": "dataset/Split data testing/data_testing7030.xlsx"
     },
     "80_20": {
         "rules": "output/training_result_databaru/rules_training_filtered_80_20.xlsx",
-        "testing": "dataset/Dataset Baru/data_testing8020.xlsx"
+        "testing": "dataset/Split data testing/data_testing8020.xlsx"
     }
 }
 
@@ -116,9 +116,9 @@ def buat_basket_testing(df):
 ringkasan_testing = []
 
 for nama_skenario, file_path in skenario_testing.items():
-    print("\n==============================")
-    print(f"TESTING SKENARIO {nama_skenario}")
-    print("==============================")
+    print("\n-------------------------------")
+    print(f"Testing Skenario {nama_skenario}")
+    print("-------------------------------")
 
     if not os.path.exists(file_path["rules"]):
         print("File rules tidak ditemukan:", file_path["rules"])
@@ -269,7 +269,6 @@ df_ringkasan_testing.to_excel(
     index=False
 )
 
-print("\n==============================")
-print("TESTING SELESAI")
-print("==============================")
+print("\n-------------------------------")
+print("Testing Finish")
 print(df_ringkasan_testing)

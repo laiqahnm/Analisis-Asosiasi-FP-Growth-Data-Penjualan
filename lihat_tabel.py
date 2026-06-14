@@ -2,24 +2,10 @@
 import pandas as pd
 from IPython.display import display
 
+pd.set_option("display.max_columns", None)
+pd.set_option("display.width", 1000)
+
+df = pd.read_excel("output/testing_result_databaru/ringkasan_testing.xlsx")
+
+display(df)
 # %%
-df = pd.read_excel("output/dataset_gabungan.xlsx")
-
-kolom_tampil = [
-    "No Transaksi",
-    "Tanggal",
-    "Waktu",
-    "Operator",
-    "Metode Pembayaran",
-    "Detail Produk",
-    "Banyak Penjualan",
-    "Penjualan Bersih"
-]
-
-display(df[kolom_tampil].head())
-
-df.info()
-# %%
-df
-# %%
-

@@ -5,34 +5,26 @@ from mlxtend.preprocessing import TransactionEncoder
 from mlxtend.frequent_patterns import fpgrowth, association_rules
 
 
-# =========================
-# FOLDER OUTPUT
-# =========================
+# folder output
 OUTPUT_DIR = "output/training_result_databaru"
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 
 
-# =========================
-# PARAMETER UTAMA
-# =========================
+# Parameter utama
 MIN_SUPPORT = 0.01
 MIN_CONFIDENCE = 0.4
 MIN_LIFT = 1.0
 
 
-# =========================
-# SKENARIO TRAINING
-# =========================
+# Skenario Testingh
 skenario_training = {
-    "60_40": "dataset/Dataset Baru/data_training6040.xlsx",
-    "70_30": "dataset/Dataset Baru/data_training7030.xlsx",
-    "80_20": "dataset/Dataset Baru/data_training8020.xlsx"
+    "60_40": "dataset/Split data testing/data_training6040.xlsx",
+    "70_30": "dataset/Split data testing/data_training7030.xlsx",
+    "80_20": "dataset/Split data testing/data_training8020.xlsx"
 }
 
 
-# =========================
-# FUNCTION
-# =========================
+# Functions
 def format_frozenset_to_string(value):
     if isinstance(value, (set, frozenset)):
         return ", ".join(sorted(list(value)))
@@ -119,9 +111,7 @@ def buat_basket(df):
     return basket
 
 
-# =========================
-# MAIN PROGRAM
-# =========================
+# main program
 for nama_skenario, input_file in skenario_training.items():
     print("\n==============================")
     print(f"TRAINING SKENARIO {nama_skenario}")
@@ -276,4 +266,4 @@ for nama_skenario, input_file in skenario_training.items():
         ].head(10)
     )
 
-print("\n=== TRAINING SELESAI ===")
+print("\n---Training Finish---")
